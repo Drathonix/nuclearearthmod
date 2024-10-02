@@ -1,0 +1,14 @@
+[
+  {
+    "modid": "nuclearearthmod",
+    "name": "Nuclear Earth Mod",
+    "description": "Generic Nuclear Earth Fixer mod. Now modernized to use MixinBooter :face_vomiting:",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/Drathonix/nuclearearthmod",
+    "updateUrl": "",
+    "authorList": ["Drathonix"],
+    "screenshots": [],
+    "dependencies": []
+  }
+]

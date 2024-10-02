@@ -1,0 +1,11 @@
+{
+  "package": "com.drathonix.nuclearearthmod.mixins.techreborn",
+  "refmap": "mixins.loliasm.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinCentrifugeRecipes",
+    "MixinTileFusionControlComputer"
+  ]
+}
