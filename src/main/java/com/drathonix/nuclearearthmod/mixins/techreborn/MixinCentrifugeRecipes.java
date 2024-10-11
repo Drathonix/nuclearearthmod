@@ -1,5 +1,6 @@
 package com.drathonix.nuclearearthmod.mixins.techreborn;
 
+import com.drathonix.nuclearearthmod.NEMod;
 import com.drathonix.nuclearearthmod.techreborn.OverrideCentrifugeRecipeHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,8 +16,9 @@ import techreborn.init.recipes.CentrifugeRecipes;
  */
 @Mixin(CentrifugeRecipes.class)
 public class MixinCentrifugeRecipes {
-    @Inject(method = "init",at = @At(value = "INVOKE", target = "Lreborncore/api/praescriptum/recipes/RecipeHandler;<init>(Ljava/lang/String;)V",shift = At.Shift.AFTER))
+    @Inject(remap=false, method = "init",at = @At(value = "INVOKE", ordinal=0, target = "Lreborncore/api/praescriptum/recipes/RecipeHandler;createRecipe()Lreborncore/api/praescriptum/recipes/Recipe;",shift = At.Shift.BEFORE))
     private static void overwriteRecipeHandler(CallbackInfo ci){
         Recipes.centrifuge=new OverrideCentrifugeRecipeHandler();
+        NEMod.logger.info("Replaced the Tech Reborn centrifuge recipe handler: " + Recipes.centrifuge);
     }
 }

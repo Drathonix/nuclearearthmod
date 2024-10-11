@@ -17,7 +17,7 @@ import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = techreborn.tiles.fusionReactor.TileFusionControlComputer.class, remap = false)
+@Mixin(value = TileFusionControlComputer.class, remap = false)
 public class MixinTileFusionControlComputer {
     @Shadow
     public Inventory inventory;
@@ -60,30 +60,30 @@ public class MixinTileFusionControlComputer {
 
     /**
      * The following 4 redirects correct the reactor recipe handling to be slot-irrelevant.
-     * Unfortunately this does have some unnecessary overhead, but its cleaner than the insane overwrite.
+     * Unfortunately this does have some unnecessary overhead, but its cleaner than the insane overwrite I wrote 4 years ago.
      */
     @Redirect(method = "func_73660_a",at = @At(value = "INVOKE", target = "Ltechreborn/tiles/fusionReactor/TileFusionControlComputer;func_70298_a(II)Lnet/minecraft/item/ItemStack;",ordinal = 0))
     public ItemStack decrInputTop0(TileFusionControlComputer instance, int j, int i){
         nrm$decrStackSize(currentRecipe.getTopInput());
-        return inventory.getStackInSlot(topStackSlot);
+        return  inventory.func_70301_a(topStackSlot);
     }
 
     @Redirect(method = "func_73660_a",at = @At(value = "INVOKE", target = "Ltechreborn/tiles/fusionReactor/TileFusionControlComputer;func_70298_a(II)Lnet/minecraft/item/ItemStack;",ordinal = 3))
     public ItemStack decrInputTop1(TileFusionControlComputer instance, int j, int i){
         nrm$decrStackSize(currentRecipe.getTopInput());
-        return inventory.getStackInSlot(topStackSlot);
+        return inventory.func_70301_a(topStackSlot);
     }
 
     @Redirect(method = "func_73660_a",at = @At(value = "INVOKE", target = "Ltechreborn/tiles/fusionReactor/TileFusionControlComputer;func_70298_a(II)Lnet/minecraft/item/ItemStack;",ordinal = 1))
     public ItemStack decrInputBottom0(TileFusionControlComputer instance, int j, int i){
         nrm$decrStackSize(currentRecipe.getBottomInput());
-        return inventory.getStackInSlot(topStackSlot);
+        return inventory.func_70301_a(topStackSlot);
     }
 
     @Redirect(method = "func_73660_a",at = @At(value = "INVOKE", target = "Ltechreborn/tiles/fusionReactor/TileFusionControlComputer;func_70298_a(II)Lnet/minecraft/item/ItemStack;",ordinal = 4))
     public ItemStack decrInputBottom1(TileFusionControlComputer instance, int j, int i){
         nrm$decrStackSize(currentRecipe.getBottomInput());
-        return inventory.getStackInSlot(topStackSlot);
+        return inventory.func_70301_a(topStackSlot);
     }
 
     @Inject(method = "onLoad",at = @At("TAIL"))

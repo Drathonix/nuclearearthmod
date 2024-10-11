@@ -98,7 +98,7 @@ dependencies {
     embed "com.vicious:persist:8-1.0.7a"
 
     implementation 'zone.rong:mixinbooter:7.1'
-    implementation files('./etc/spark-forge-deobf.jar')
+    //implementation files('./etc/spark-forge-deobf.jar')
 
     compileOnly 'com.enderio.core:EnderCore:1.12.2-+'
     compileOnly ('com.enderio:EnderIO:1.12.2-+') {
@@ -167,6 +167,9 @@ processResources {
         fcd.expand ('version': project.version, 'mcversion': project.minecraft.version)
     }
 
+
+    exclude "META-INF/versions/9/module-info.class"
+
     from refMap
     dependsOn 'compileJava'
 }
@@ -177,12 +180,10 @@ jar {
     }
     manifest {
         attributes([
-                'FMLCorePluginContainsFMLMod': true,
-                'FMLCorePlugin': 'zone.rong.loliasm.core.LoliLoadingPlugin',
-                'ForceLoadAsMod': project.gradle.startParameter.taskNames[0] == 'build',
-                'FMLAT': 'loliasm_at.cfg'
+                'ForceLoadAsMod': true
         ])
     }
+    exclude "META-INF/versions/9/module-info.class"
 }
 
 idea {

@@ -1,6 +1,6 @@
 {
   "package": "com.drathonix.nuclearearthmod.mixins.nuclearcraft",
-  "refmap": "mixins.loliasm.refmap.json",
+  "refmap": "mixins.nuclearearthmod.refmap.json",
   "target": "@env(DEFAULT)",
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_8",

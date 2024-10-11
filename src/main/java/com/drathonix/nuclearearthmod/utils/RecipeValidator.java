@@ -2,23 +2,21 @@ package com.drathonix.nuclearearthmod.utils;
 
 
 
+import com.drathonix.nuclearearthmod.NEMod;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
 public class RecipeValidator {
-    public static boolean validate(List<ItemStack> stacks, List<ItemStack> inputs){
-        for(ItemStack i : stacks){
-            boolean itemvalid = false;
-            for(ItemStack ex : inputs){
-                if(itemEqualsAndSufficient(i, ex)) {
-                    itemvalid = true;
-                    break;
+    public static boolean validate(List<ItemStack> actual, List<ItemStack> inputs){
+        l1: for (ItemStack input : inputs) {
+            for (ItemStack act : actual) {
+                if(itemEqualsAndSufficient(act,input)){
+                    NEMod.logger.info("Is sufficient {} {]",input,act);
+                    continue l1;
                 }
             }
-            if(!itemvalid){
-                return false;
-            }
+            return false;
         }
         return true;
     }
@@ -28,6 +26,9 @@ public class RecipeValidator {
         }
         if(!in.getItem().equals(expected.getItem())){
             return false;
+        }
+        if(in.getMetadata() != expected.getMetadata()){
+           return false;
         }
         return in.getTagCompound() != null ? in.getTagCompound().equals(expected.getTagCompound()) : expected.getTagCompound() == null;
     }
