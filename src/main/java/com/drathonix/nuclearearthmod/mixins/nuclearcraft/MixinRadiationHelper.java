@@ -83,25 +83,27 @@ public class MixinRadiationHelper {
         if(entity instanceof EntityPlayer) {
             IRadiationSource chunkSource = getRadiationSource(PlayerHelper.getChunkFromEntity(entity));
             double radiationLevel = chunkSource.getRadiationLevel();
-            if(radiationLevel < 3){
-                for (ItemStack armor : PlayerHelper.getEntityArmor(entity)) {
-                    if(armor.getItem() instanceof ItemArmor){
-                        if(((ItemArmor) armor.getItem()).getArmorMaterial().equals(NCArmor.HAZMAT)){
-                            if(radiationLevel/3 > Math.random()) {
-                                PlayerHelper.attemptDamageItem(armor, 1, entity);
+            if(MixinConfig.hazmatTakesDamageFromRadiation) {
+                if (radiationLevel < 3) {
+                    for (ItemStack armor : PlayerHelper.getEntityArmor(entity)) {
+                        if (armor.getItem() instanceof ItemArmor) {
+                            if (((ItemArmor) armor.getItem()).getArmorMaterial().equals(NCArmor.HAZMAT)) {
+                                if (radiationLevel / 3 > Math.random()) {
+                                    PlayerHelper.attemptDamageItem(armor, 1, entity);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    for (ItemStack armor : PlayerHelper.getEntityArmor(entity)) {
+                        if (armor.getItem() instanceof ItemArmor) {
+                            if (((ItemArmor) armor.getItem()).getArmorMaterial().equals(NCArmor.HAZMAT)) {
+                                PlayerHelper.attemptDamageItem(armor, (int) (radiationLevel / 3), entity);
                             }
                         }
                     }
                 }
             }
-            else
-                for (ItemStack armor : PlayerHelper.getEntityArmor(entity)) {
-                    if(armor.getItem() instanceof ItemArmor){
-                        if(((ItemArmor) armor.getItem()).getArmorMaterial().equals(NCArmor.HAZMAT)){
-                            PlayerHelper.attemptDamageItem(armor, (int)(radiationLevel/3), entity);
-                        }
-                    }
-                }
         }
         double resistance = ignoreResistance ? Math.min(0D, entityRads.getInternalRadiationResistance()) : entityRads.getFullRadiationResistance();
         double addedRadiation = resistance > 0D ? NCMath.square(rawRadiation)/(rawRadiation + resistance)  : rawRadiation * (1D - resistance);

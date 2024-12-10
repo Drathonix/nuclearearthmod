@@ -12,7 +12,6 @@ public class RecipeValidator {
         l1: for (ItemStack input : inputs) {
             for (ItemStack act : actual) {
                 if(itemEqualsAndSufficient(act,input)){
-                    NEMod.logger.info("Is sufficient {} {]",input,act);
                     continue l1;
                 }
             }

@@ -30,7 +30,6 @@ minecraft {
     mcVersion = '1.12.2'
     def args = [
             "-ea:${project.group}",
-            '-Dfml.coreMods.load=zone.rong.loliasm.core.LoliLoadingPlugin',
             '-Dmixin.hotSwap=true',
             '-Dmixin.checks.interfaces=true',
             '-Dmixin.debug.export=true'
